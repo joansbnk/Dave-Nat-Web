@@ -1,0 +1,1749 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dave&Nat - Reserva de Hospedajes</title>
+    <meta name="description" content="Descubre las propiedades más exclusivas y estancias populares en la CDMX con Dave&Nat. Atención personalizada y estilo único.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        :root {
+            --bg-light: #f5f5f5;
+            --primary: #D17EA6;
+            --text-dark: #333;
+            --border: #ddd;
+            --white: #ffffff;
+            --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 10px 20px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.12);
+            --radius-md: 12px;
+            --radius-lg: 24px;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-padding {
+            padding: 80px 0;
+        }
+
+        .bg-light {
+            background-color: var(--bg-light);
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            letter-spacing: -0.5px;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        button {
+            font-family: inherit;
+            cursor: pointer;
+            border: none;
+            background: none;
+            transition: var(--transition);
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 12px 24px;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary:hover {
+            background-color: #B85A8A;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(209, 126, 166, 0.3);
+        }
+
+        .btn-outline {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 10px 20px;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-light {
+            background-color: var(--white);
+            color: var(--text-dark);
+            padding: 12px 24px;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .btn-light:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-text {
+            color: var(--primary);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-text:hover {
+            gap: 10px;
+        }
+
+        .w-100 { width: 100%; }
+
+        .circle-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background-color: var(--white);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-dark);
+            opacity: 0.7;
+        }
+
+        .circle-btn:hover:not(:disabled) {
+            background-color: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+            opacity: 1;
+        }
+        .circle-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: -1px;
+        }
+
+        .menu {
+            display: none;
+            gap: 30px;
+        }
+
+        .menu a {
+            font-weight: 500;
+            color: #666;
+        }
+
+        .menu a:hover, .menu a.active {
+            color: var(--text-dark);
+        }
+
+        .nav-actions {
+            display: none;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .lang-selector {
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .login-btn {
+            font-weight: 600;
+            background: transparent;
+        }
+
+        .login-btn:hover {
+            color: var(--primary);
+        }
+
+        .mobile-menu-btn {
+            display: block;
+        }
+
+        @media (min-width: 768px) {
+            .menu, .nav-actions { display: flex; }
+            .mobile-menu-btn { display: none; }
+        }
+
+        /* HERO SECTION */
+        .hero-section {
+            position: relative;
+            height: 85vh;
+            min-height: 600px;
+            background-color: #000;
+            overflow: hidden;
+            margin-top: 60px;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-slider {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            transition: transform 0.8s cubic-bezier(0.86, 0, 0.07, 1);
+        }
+
+        .hero-slider .slide {
+            min-width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .hero-slider .slide::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.4), transparent);
+        }
+
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            border-radius: 50%;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .hero-section:hover .nav-arrow { opacity: 1; }
+        .nav-arrow:hover { background-color: var(--white); color: var(--text-dark); }
+        .nav-arrow.prev { left: 20px; }
+        .nav-arrow.next { right: 20px; }
+
+        .pagination-dots {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .dot.active {
+            background-color: var(--white);
+            transform: scale(1.3);
+        }
+
+        /* BUSCADOR FLOTANTE */
+        .search-container {
+            position: relative;
+            max-width: 1000px;
+            margin: -60px auto 40px;
+            padding: 0 20px;
+            z-index: 10;
+        }
+
+        .search-bar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 100px;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            padding: 10px 10px 10px 30px;
+            border: 1px solid rgba(255,255,255,0.4);
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .search-bar {
+                border-radius: var(--radius-lg);
+                flex-direction: column;
+                align-items: stretch;
+                padding: 20px;
+            }
+        }
+
+        .search-field {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex: 1;
+            min-width: 150px;
+            padding: 5px;
+            border-radius: var(--radius-md);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .search-field:hover {
+            background-color: rgba(0,0,0,0.03);
+        }
+
+        .search-field i {
+            color: var(--primary);
+            width: 24px;
+            height: 24px;
+        }
+
+        .field-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .field-content .label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #888;
+        }
+
+        .field-content .value {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            width: 100%;
+        }
+
+        .search-bar .divider {
+            width: 1px;
+            height: 40px;
+            background-color: var(--border);
+        }
+        @media (max-width: 768px) { .search-bar .divider { display: none; } }
+
+        .btn-search {
+            background-color: var(--primary);
+            color: var(--white);
+            border-radius: 100px;
+            padding: 15px 30px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .btn-search:hover {
+            background-color: #B85A8A;
+            transform: scale(1.02);
+        }
+
+        /* DROPDOWN ZONAS */
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            min-width: 200px;
+            max-height: 300px;
+            overflow-y: auto;
+            box-shadow: var(--shadow-md);
+            z-index: 1001;
+            margin-top: 10px;
+        }
+
+        .dropdown-option {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .dropdown-option:hover {
+            background-color: var(--bg-light);
+        }
+
+        .dropdown-option input[type="radio"] {
+            cursor: pointer;
+        }
+
+        .dropdown-option label {
+            cursor: pointer;
+            flex: 1;
+            font-weight: 500;
+        }
+
+        /* CALENDAR POPUP */
+        .calendar-popup {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            min-width: 350px;
+            box-shadow: var(--shadow-lg);
+            z-index: 1001;
+            padding: 20px;
+            margin-top: 10px;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .cal-nav-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cal-nav-btn:hover {
+            background-color: var(--bg-light);
+        }
+
+        .calendar-weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            margin-bottom: 10px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #888;
+            text-align: center;
+        }
+
+        .calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            margin-bottom: 20px;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid transparent;
+            transition: var(--transition);
+        }
+
+        .calendar-day:hover:not(.other-month) {
+            background-color: var(--bg-light);
+        }
+
+        .calendar-day.other-month {
+            color: #ddd;
+            cursor: not-allowed;
+        }
+
+        .calendar-day.selected {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .calendar-day.in-range {
+            background-color: rgba(209, 126, 166, 0.2);
+        }
+
+        .calendar-footer {
+            display: flex;
+            gap: 10px;
+        }
+
+        .calendar-footer button {
+            flex: 1;
+        }
+
+        /* GENERAL SLIDER STYLES */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .section-header h2 { margin-bottom: 0; }
+
+        .slider-controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        .slider-container {
+            overflow: hidden;
+            margin: 0 -10px;
+            padding: 10px;
+        }
+
+        .slider-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        /* ZONAS DESTACADAS */
+        .zone-card {
+            min-width: 100%;
+            padding: 0 10px;
+        }
+
+        @media (min-width: 768px) { .zone-card { min-width: 33.333%; } }
+
+        .zone-card .card-img {
+            height: 400px;
+            border-radius: var(--radius-lg);
+            background-size: cover;
+            background-position: center;
+            margin-bottom: 20px;
+            transition: var(--transition);
+        }
+
+        .zone-card:hover .card-img {
+            transform: scale(1.02);
+            box-shadow: var(--shadow-md);
+        }
+
+        .zone-card h3 { margin-bottom: 5px; }
+        .zone-card p { color: #666; margin-bottom: 15px; }
+
+        /* PROPIEDADES DESTACADAS */
+        .property-card {
+            min-width: 100%;
+            padding: 0 10px;
+            cursor: pointer;
+        }
+
+        @media (min-width: 768px) { .property-card { min-width: 50%; } }
+
+        .property-card .img-wrapper {
+            position: relative;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            height: 300px;
+            margin-bottom: 20px;
+        }
+
+        .property-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .property-card:hover img { transform: scale(1.05); }
+
+        .property-card .badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: rgba(255,255,255,0.9);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .prop-info { padding: 10px; }
+
+        .prop-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .zone-tag {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #888;
+            background-color: var(--border);
+            padding: 4px 10px;
+            border-radius: 4px;
+        }
+
+        .prop-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            color: #666;
+        }
+
+        .prop-details i { width: 16px; height: 16px; margin-right: 5px; vertical-align: text-bottom; }
+
+        .prop-details .price strong {
+            color: var(--text-dark);
+            font-size: 1.2rem;
+        }
+
+        /* PROCESO DE RESERVA */
+        .process-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        @media (min-width: 768px) {
+            .process-grid { grid-template-columns: repeat(4, 1fr); }
+        }
+
+        .process-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .step-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .process-step h4 { font-size: 1.1rem; font-weight: 600; }
+
+        @media (min-width: 768px) {
+            .process-step:not(:last-child) .step-circle::after {
+                content: '';
+                position: absolute;
+                width: 100%;
+                height: 2px;
+                background-color: var(--border);
+                top: 50%;
+                left: 100%;
+                z-index: -1;
+            }
+        }
+
+        /* BANNER SERVICIOS */
+        .banner-services {
+            background-color: #333;
+            text-align: center;
+            padding: 100px 20px;
+            color: var(--white);
+        }
+
+        .banner-services h2 { color: var(--white); margin-bottom: 30px; }
+
+        /* PROPUESTA DE VALOR */
+        .value-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        @media (min-width: 768px) { .value-grid { grid-template-columns: repeat(3, 1fr); text-align: center; } }
+
+        .value-item { display: flex; flex-direction: column; align-items: center; }
+        .value-item .icon-box {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            background-color: var(--bg-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: var(--primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* TESTIMONIOS */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        @media (min-width: 768px) { .testimonials-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (min-width: 1024px) { .testimonials-grid { grid-template-columns: repeat(4, 1fr); } }
+
+        .testimonial-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .testimonial-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
+
+        .testimonial-card .quote { color: var(--primary); opacity: 0.3; margin-bottom: 15px; }
+        .testimonial-card .quote i { width: 32px; height: 32px; fill: currentColor; }
+
+        .testimonial-card p {
+            font-style: italic;
+            color: #555;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .user-info { display: flex; align-items: center; gap: 15px; }
+        .user-info div:first-child { width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0; }
+        .user-info h5 { margin: 0; font-size: 0.9rem; }
+        .user-info .stars { font-size: 0.8rem; letter-spacing: 2px; }
+
+        /* BLOG */
+        .blog-card {
+            min-width: 100%;
+            padding: 0 10px;
+        }
+
+        @media (min-width: 768px) { .blog-card { min-width: 33.333%; } }
+
+        .blog-card .card-content h3 { margin-bottom: 10px; }
+        .blog-card .card-content p { color: #666; margin-bottom: 15px; }
+
+        /* FOOTER */
+        .footer {
+            background-color: #111;
+            color: #fff;
+            padding: 80px 0 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        @media (min-width: 768px) { .footer-grid { grid-template-columns: 2fr 1fr 1fr 1fr; } }
+
+        .footer-col h4 { margin-bottom: 20px; color: #888; font-weight: 500; }
+        .footer-col a { display: block; color: #ccc; margin-bottom: 10px; }
+        .footer-col a:hover { color: var(--white); }
+
+        .social-icons { display: flex; gap: 15px; }
+        .social-icons a { background: rgba(255,255,255,0.1); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .social-icons a:hover { background: var(--primary); }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* GUESTS POPUP */
+        .guests-popup {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            min-width: 320px;
+            box-shadow: var(--shadow-lg);
+            z-index: 1001;
+            padding: 24px;
+            margin-top: 10px;
+            display: none;
+            cursor: default;
+        }
+
+        .guests-popup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0px;
+        }
+        
+        .guests-popup-header h3 {
+            margin: 0;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .guests-popup-close { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; background: var(--bg-light); border-radius: 50%; cursor: pointer; border: none; outline: none; }
+        .guests-popup-close:hover { background: #e0e0e0; }
+
+        .guests-popup-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .guest-counter {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--bg-light);
+        }
+
+        .guest-counter .info h4 { font-size: 1.1rem; margin-bottom: 2px; }
+        .guest-counter .info p { font-size: 0.85rem; color: #888; }
+
+        .guest-counter .controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .counter-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-dark);
+        }
+
+        .counter-btn:hover:not(:disabled) { border-color: var(--primary); color: var(--primary); }
+        .counter-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+        .guest-counter .count { min-width: 20px; text-align: center; font-weight: 600; }
+
+        .sidebar-footer { padding: 30px; border-top: 1px solid var(--border); }
+
+        .section-title {
+            margin-bottom: 50px;
+        }
+    </style>
+    <!-- Tailwind injected without preflight exclusively for the homologated navbar -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        corePlugins: { preflight: false },
+        theme: {
+          extend: {
+            colors: {
+              brand: '#E91E8C',
+              dark: '#111111',
+              graylight: '#D9D9D9'
+            }
+          }
+        }
+      }
+    </script>
+</head>
+<body>
+
+    <!-- 1. NAVBAR -->
+    <nav class="w-full bg-white/95 backdrop-blur-[10px] fixed top-0 z-50 border-b border-graylight border-solid" style="border-bottom-width: 1px;">
+        <div class="max-w-[1200px] mx-auto px-5 w-full flex items-center justify-between h-[70px]">
+            <a href="index.html" class="flex items-center gap-2 cursor-pointer text-[#232323]" style="text-decoration: none;">
+                <svg id="Capa_2" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 694.5 176.9" style="height: 35px; width: auto; color: #232323;">
+                    <defs><style>.st0 { fill: currentColor; }</style></defs>
+                    <g id="Capa_1-2"><g><g><path class="st0" d="M0,2.3h27.6c37.6,0,63.7,21.6,63.7,55.3s-24.3,58.4-55.5,58.4H0V2.3ZM39.9,112.6c20.5-4.2,34.2-21,34.2-51.6,0-44.2-29.2-55.3-46.5-55.3h-11v106.9s23.3,0,23.3,0Z"/><path class="st0" d="M149.9,80.6h-41.9c-6,17.5-10.4,31.8-11.4,35.4h-4.7L131.4,2.3h8.9l39.2,113.7h-17.6l-12.1-35.4h.1ZM148.7,77.2l-19.7-57.7-17.8,51.4-2.2,6.3h39.7Z"/><path class="st0" d="M167.9,2.3h17.9l32.6,95.3,14.1-40c5.7-16.2,16.2-46.6,18.9-55.2h4.6l-31.4,88.6c-2.4,6.9-7.1,20.9-8.5,25.2h-8.9L167.9,2.3Z"/><path class="st0" d="M268.2,2.3h63.5v4.1c-4.4-.2-27.3-.7-32.5-.7h-14.4v50.3h9.5c4.5,0,27.8-.2,32.5-.3v4.1c-4.7-.2-28-.4-32.5-.4h-9.5v53.2h15c5.2,0,28.1-.6,32.5-.7v4.1h-64.2V2.3h0Z"/><path class="st0" d="M417.9,116l-9.2-11c-8.4,8.1-19,13.2-31.5,13.2-18.9,0-36-11.6-36-30.1s9.6-25.1,27.2-31.8c-6.3-8.5-11.4-17.7-11.4-28.4,0-16.2,11.8-27.9,29.8-27.9s28.3,10.1,28.3,23.7-15.1,24.1-28.8,29.1l1.6,2,28.6,35c5.1-8.9,8.6-19.9,9.1-31.4l4.3.2c-1.2,11.8-5,23.8-11.2,33.9l19.2,23.6h-20ZM370.4,59c-9.2,4.1-13.2,12.2-13.2,22.7,0,17.6,10.8,30.8,26.8,30.8s16.5-4.1,22.7-9.9l-31.8-38.1-4.5-5.5h0ZM384.2,50.3c10.2-5,17-14.4,17-26.9s-6.6-20-17-20-16.1,6.5-16.1,15.5,7.5,20.7,16.1,31.4h0Z"/><path class="st0" d="M450.9,24.1v39.9c0,18.3.7,49.7.8,52h-4.2V2.3h9.2l67,92.4v-40.4c0-18.3-.7-48.9-.8-52h4.2v113.7h-9.2l-67-91.9h0Z"/><path class="st0" d="M594.6,80.6h-41.9c-6,17.5-10.4,31.8-11.4,35.4h-4.7L576.2,2.3h8.8l39.2,113.7h-17.5l-12.1-35.4h0ZM593.5,77.2l-19.7-57.7-17.8,51.4-2.2,6.3h39.7Z"/><path class="st0" d="M614.9,2.3h79.6v4.1c-4.3,0-27.2-.7-31.1-.7v110.3h-16.7V5.7h-.6c-3.4,0-26.9.7-31.3.7V2.3h0Z"/></g><g><path class="st0" d="M170.7,176.5h-4.1v-12.1h-11.6v12.1h-4.1v-27.8h4.1v12.2h11.6v-12.2h4.1v27.8Z"/><path class="st0" d="M214.7,162.6c0-9.1,4.9-14.2,11.6-14.2s11.6,5.1,11.6,14.2-5,14.3-11.6,14.3-11.6-5.2-11.6-14.3h0ZM233.6,162.6c0-7.4-3.2-10.7-7.4-10.7s-7.4,3.3-7.4,10.7,3.2,10.8,7.4,10.8,7.4-3.4,7.4-10.8Z"/><path class="st0" d="M281.1,168.5v-1.2h4.1v1.1c0,3.4,1.9,4.9,5.4,4.9s5.5-1.1,5.5-3.9-2.8-4.2-6.8-5.5c-4.5-1.4-8-3.8-8-8.5s3.8-7.2,9.1-7.2,9.4,2.6,9.4,7.9v1.3h-4.1v-1.1c0-3.2-1.8-4.6-5.2-4.6s-5.2,1.1-5.2,3.7,2.9,4.2,6.8,5.5c5,1.7,8,3.6,8,8.3s-3.7,7.5-9.5,7.5-9.5-2.8-9.5-8.4h0v.2h0Z"/><path class="st0" d="M354.1,152.1v24.4h-4.1v-24.4h-7.1v-3.4h18.3v3.4h-7.1,0Z"/><path class="st0" d="M404.9,148.7h4v27.8h-4v-27.8Z"/><path class="st0" d="M453.8,176.5v-27.8h6.5l10.5,24.7v-24.7h4v27.8h-6.6l-10.4-24.5v24.5h-4Z"/><path class="st0" d="M518.8,162.6c0-9,5.2-14.3,11.8-14.3s10,5.6,10,9.4v.2h-4v-.2c0-2.8-1.9-5.9-6-5.9s-7.7,3.3-7.7,10.8,3.4,10.7,7.5,10.7,6-2.5,6.5-4.6v-2.5h-6.4v-3.2h10v13.4h-2.6l-.3-3.1c-.4.8-2.4,3.5-7.4,3.5s-11.4-5.2-11.4-14.2h0Z"/></g></g></g>
+                </svg>
+            </a>
+
+            <div class="hidden md:flex items-center gap-[20px]">
+                <a href="index.html" class="text-brand transition-colors text-[0.9rem] font-medium" style="text-decoration: none;">Home</a>
+                <a href="preview.html" class="text-dark hover:text-brand transition-colors text-[0.9rem] font-medium" style="text-decoration: none;">Propiedades</a>
+                <a href="#" class="text-dark hover:text-brand transition-colors text-[0.9rem] font-medium" style="text-decoration: none;">Blog</a>
+                <a href="#" class="text-dark hover:text-brand transition-colors text-[0.9rem] font-medium" style="text-decoration: none;">The Collective</a>
+                <a href="#" class="text-dark hover:text-brand transition-colors text-[0.9rem] font-medium" style="text-decoration: none;">Owners</a>
+            </div>
+
+            <div class="flex items-center gap-[15px]">
+                <div class="text-[0.8rem] font-semibold cursor-pointer">ES | EN</div>
+                <button class="border border-dark rounded-[20px] px-[15px] py-[8px] text-[0.8rem] border-solid font-medium hover:bg-dark hover:text-white transition-all bg-transparent cursor-pointer">Login</button>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- 2. HERO SECTION -->
+        <section class="hero-section">
+            <div class="hero-slider" id="heroSlider">
+                <div class="slide" style="background-color: #f0f0f0;"></div>
+                <div class="slide" style="background-color: #f0f0f0;"></div>
+                <div class="slide" style="background-color: #f0f0f0;"></div>
+            </div>
+            
+            <button class="nav-arrow prev" id="heroPrev"><i data-lucide="chevron-left"></i></button>
+            <button class="nav-arrow next" id="heroNext"><i data-lucide="chevron-right"></i></button>
+            
+            <div class="pagination-dots" id="heroDots"></div>
+        </section>
+
+        <!-- 3. BUSCADOR FLOTANTE -->
+        <div class="search-container">
+            <div class="search-bar">
+                <!-- ZONA DROPDOWN -->
+                <div class="search-field" id="zoneField">
+                    <i data-lucide="map-pin"></i>
+                    <div class="field-content" style="cursor: pointer;" id="triggerZoneDropdown">
+                        <span class="label">Zona</span>
+                        <span class="value" id="zoneSelected">CDMX</span>
+                    </div>
+                    <!-- Zona Dropdown Menu -->
+                    <div class="dropdown-menu" id="zoneDropdown" style="display: none;">
+                        <div class="dropdown-option">
+                            <input type="radio" name="zone" id="zone-cdmx" value="CDMX" checked>
+                            <label for="zone-cdmx">CDMX</label>
+                        </div>
+                        <div class="dropdown-option">
+                            <input type="radio" name="zone" id="zone-roma" value="ROMA">
+                            <label for="zone-roma">ROMA</label>
+                        </div>
+                        <div class="dropdown-option">
+                            <input type="radio" name="zone" id="zone-condesa" value="CONDESA">
+                            <label for="zone-condesa">CONDESA</label>
+                        </div>
+                        <div class="dropdown-option">
+                            <input type="radio" name="zone" id="zone-polanco" value="POLANCO">
+                            <label for="zone-polanco">POLANCO</label>
+                        </div>
+                        <div class="dropdown-option">
+                            <input type="radio" name="zone" id="zone-delvalle" value="DEL VALLE">
+                            <label for="zone-delvalle">DEL VALLE</label>
+                        </div>
+                        <div class="dropdown-option">
+                            <input type="radio" name="zone" id="zone-juarez" value="JUÁREZ">
+                            <label for="zone-juarez">JUÁREZ</label>
+                        </div>
+                        <div class="dropdown-option">
+                            <input type="radio" name="zone" id="zone-reforma" value="REFORMA">
+                            <label for="zone-reforma">REFORMA</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="divider"></div>
+
+                <!-- FECHA DROPDOWN -->
+                <div class="search-field" id="dateField">
+                    <i data-lucide="calendar"></i>
+                    <div class="field-content" style="cursor: pointer;" id="triggerDatePicker">
+                        <span class="label">Entrada / Salida</span>
+                        <span class="value" id="dateSelected">12 Oct - 18 Oct</span>
+                    </div>
+                    <!-- Calendar Popup -->
+                    <div class="calendar-popup" id="calendarPopup" style="display: none;">
+                        <div class="calendar-header">
+                            <button id="prevMonth" class="cal-nav-btn">&lt;</button>
+                            <span id="monthYear">Octubre 2026</span>
+                            <button id="nextMonth" class="cal-nav-btn">&gt;</button>
+                        </div>
+                        <div class="calendar-weekdays">
+                            <div>Dom</div><div>Lun</div><div>Mar</div><div>Mié</div><div>Jue</div><div>Vie</div><div>Sáb</div>
+                        </div>
+                        <div class="calendar-days" id="calendarDays"></div>
+                        <div class="calendar-footer">
+                            <button id="clearDates" class="btn-outline" style="width: 48%;">Limpiar</button>
+                            <button id="applyDates" class="btn-primary" style="width: 48%;">Aplicar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="divider"></div>
+
+                <!-- HUÉSPEDES -->
+                <div class="search-field" id="guestsField">
+                    <i data-lucide="users"></i>
+                    <div class="field-content" style="cursor: pointer;" id="triggerGuestsDropdown">
+                        <span class="label">Huéspedes</span>
+                        <span class="value" id="guestsSummary">2 Huéspedes</span>
+                    </div>
+                    <!-- Guests Popup (like calendar) -->
+                    <div class="guests-popup" id="guestsPopup">
+                        <div class="guests-popup-header">
+                            <h3>HUÉSPEDES</h3>
+                            <button class="guests-popup-close" id="closeGuestsPopup"><i data-lucide="x" style="width: 18px; height: 18px;"></i></button>
+                        </div>
+                        <div class="guests-popup-content">
+                            <div class="guest-counter" style="border-top: 1px solid var(--border); padding-top: 20px; margin-top: 20px;">
+                                <div class="info">
+                                    <h4>Adultos</h4>
+                                    <p>13+ años</p>
+                                </div>
+                                <div class="controls">
+                                    <button class="counter-btn minus" data-target="adults"><i data-lucide="minus"></i></button>
+                                    <span class="count" id="count-adults">2</span>
+                                    <button class="counter-btn plus" data-target="adults"><i data-lucide="plus"></i></button>
+                                </div>
+                            </div>
+                            <div class="guest-counter">
+                                <div class="info">
+                                    <h4>Niños</h4>
+                                    <p>2-12 años</p>
+                                </div>
+                                <div class="controls">
+                                    <button class="counter-btn minus" data-target="children" disabled><i data-lucide="minus"></i></button>
+                                    <span class="count" id="count-children">0</span>
+                                    <button class="counter-btn plus" data-target="children"><i data-lucide="plus"></i></button>
+                                </div>
+                            </div>
+                            <div class="guest-counter">
+                                <div class="info">
+                                    <h4>Bebés</h4>
+                                    <p>Menos de 2 años</p>
+                                </div>
+                                <div class="controls">
+                                    <button class="counter-btn minus" data-target="infants" disabled><i data-lucide="minus"></i></button>
+                                    <span class="count" id="count-infants">0</span>
+                                    <button class="counter-btn plus" data-target="infants"><i data-lucide="plus"></i></button>
+                                </div>
+                            </div>
+                            <div class="guest-counter">
+                                <div class="info">
+                                    <h4>Mascotas</h4>
+                                    <p>Mascotas permitidas</p>
+                                </div>
+                                <div class="controls">
+                                    <button class="counter-btn minus" data-target="pets" disabled><i data-lucide="minus"></i></button>
+                                    <span class="count" id="count-pets">0</span>
+                                    <button class="counter-btn plus" data-target="pets"><i data-lucide="plus"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="preview.html" class="btn-search"><i data-lucide="search"></i> Buscar</a>
+            </div>
+        </div>
+
+        <!-- 5. ZONAS DESTACADAS -->
+        <section class="section-padding wrapper">
+            <div class="section-header">
+                <h2>Elige tu vecindario ideal en CDMX</h2>
+                <div class="slider-controls">
+                    <button class="circle-btn prev" id="zonasPrev"><i data-lucide="arrow-left"></i></button>
+                    <button class="circle-btn next" id="zonasNext"><i data-lucide="arrow-right"></i></button>
+                </div>
+            </div>
+            <div class="slider-container" id="zonasContainer">
+                <div class="slider-track" id="zonasTrack">
+                    <div class="zone-card">
+                        <div class="card-img" style="background-color: #f0f0f0;"></div>
+                        <div class="card-content">
+                            <h3>ROMA</h3>
+                            <p>Arte, gastronomía y vida bohemia</p>
+                            <a href="preview.html" class="btn-outline">Ver propiedades</a>
+                        </div>
+                    </div>
+                    <div class="zone-card">
+                        <div class="card-img" style="background-color: #f0f0f0;"></div>
+                        <div class="card-content">
+                            <h3>CONDESA</h3>
+                            <p>Parques, diseño y ambiente vibrante</p>
+                            <a href="preview.html" class="btn-outline">Ver propiedades</a>
+                        </div>
+                    </div>
+                    <div class="zone-card">
+                        <div class="card-img" style="background-color: #f0f0f0;"></div>
+                        <div class="card-content">
+                            <h3>POLANCO</h3>
+                            <p>Lujo, exclusividad y boutiques</p>
+                            <a href="preview.html" class="btn-outline">Ver propiedades</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pagination-dots" id="zonasDots"></div>
+        </section>
+
+        <!-- 6. PROPIEDADES DESTACADAS -->
+        <section class="section-padding bg-light wrapper">
+            <div class="section-header">
+                <h2>Nuestras estancias más populares</h2>
+                <div class="slider-controls">
+                    <button class="circle-btn prev" id="propiedadesPrev"><i data-lucide="arrow-left"></i></button>
+                    <button class="circle-btn next" id="propiedadesNext"><i data-lucide="arrow-right"></i></button>
+                </div>
+            </div>
+            <div class="slider-container" id="propContainer">
+                <div class="slider-track" id="propTrack">
+                    <a href="seleccion.html" class="property-card" style="text-decoration: none; color: inherit; display: block;">
+                        <div class="img-wrapper" style="background-color: #f0f0f0;">
+                            <span class="badge">Súper anfitrión</span>
+                        </div>
+                        <div class="prop-info">
+                            <div class="prop-header">
+                                <h3>Stylish Home</h3>
+                                <span class="zone-tag">ROMA</span>
+                            </div>
+                            <div class="prop-details">
+                                <span><i data-lucide="users"></i> 4 Capacidad</span>
+                                <span class="price"><strong>$1,200</strong> / noche</span>
+                            </div>
+                            <span class="btn-primary" style="display: inline-block;">Ver más</span>
+                        </div>
+                    </a>
+                    <a href="seleccion.html" class="property-card" style="text-decoration: none; color: inherit; display: block;">
+                        <div class="img-wrapper" style="background-color: #f0f0f0;">
+                        </div>
+                        <div class="prop-info">
+                            <div class="prop-header">
+                                <h3>Hugo Apartment</h3>
+                                <span class="zone-tag">CONDESA</span>
+                            </div>
+                            <div class="prop-details">
+                                <span><i data-lucide="users"></i> 2 Capacidad</span>
+                                <span class="price"><strong>$950</strong> / noche</span>
+                            </div>
+                            <span class="btn-primary" style="display: inline-block;">Ver más</span>
+                        </div>
+                    </a>
+                    <a href="seleccion.html" class="property-card" style="text-decoration: none; color: inherit; display: block;">
+                        <div class="img-wrapper" style="background-color: #f0f0f0;">
+                        </div>
+                        <div class="prop-info">
+                            <div class="prop-header">
+                                <h3>Polanco Loft</h3>
+                                <span class="zone-tag">POLANCO</span>
+                            </div>
+                            <div class="prop-details">
+                                <span><i data-lucide="users"></i> 3 Capacidad</span>
+                                <span class="price"><strong>$1,800</strong> / noche</span>
+                            </div>
+                            <span class="btn-primary" style="display: inline-block;">Ver más</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. PROCESO DE RESERVA -->
+        <section class="section-padding wrapper text-center">
+            <h2>Así de fácil es hospedarse con nosotros</h2>
+            <div class="process-grid">
+                <div class="process-step">
+                    <div class="step-circle">1</div>
+                    <h4>Elige tu propiedad</h4>
+                </div>
+                <div class="process-step">
+                    <div class="step-circle">2</div>
+                    <h4>Confirma tus fechas</h4>
+                </div>
+                <div class="process-step">
+                    <div class="step-circle">3</div>
+                    <h4>Reserva directo y seguro</h4>
+                </div>
+                <div class="process-step">
+                    <div class="step-circle">4</div>
+                    <h4>Disfruta y etiqueta</h4>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. BANNER DE SERVICIOS -->
+        <section class="banner-services">
+            <div class="banner-content">
+                <h2>SERVICIOS ESPECIALES DE DAVENAT</h2>
+                <a href="#" class="btn-light">Conocer más</a>
+            </div>
+        </section>
+
+        <!-- 9. PROPUESTA DE VALOR -->
+        <section class="section-padding wrapper">
+            <h2 class="text-center">¿Por qué elegir Dave&Nat?</h2>
+            <div class="value-grid">
+                <div class="value-item">
+                    <div class="icon-box"><i data-lucide="heart-handshake"></i></div>
+                    <h4>Atención personalizada</h4>
+                </div>
+                <div class="value-item">
+                    <div class="icon-box"><i data-lucide="sofa"></i></div>
+                    <h4>Diseño interior único</h4>
+                </div>
+                <div class="value-item">
+                    <div class="icon-box"><i data-lucide="shield-check"></i></div>
+                    <h4>Transparencia y confianza</h4>
+                </div>
+            </div>
+        </section>
+
+        <!-- 10. TESTIMONIOS -->
+        <section class="section-padding bg-light wrapper">
+            <h2 class="text-center section-title">TESTIMONIOS</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="quote"><i data-lucide="quote"></i></div>
+                    <p>"La mejor experiencia en la Roma. El diseño del depa es increíble."</p>
+                    <div class="user-info">
+                        <div style="background-color: #f0f0f0;"></div>
+                        <div>
+                            <h5>María P.</h5>
+                            <div class="stars">⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="quote"><i data-lucide="quote"></i></div>
+                    <p>"Atención 24/7 y limpieza impecable. Sin duda regresaré pronto."</p>
+                    <div class="user-info">
+                        <div style="background-color: #f0f0f0;"></div>
+                        <div>
+                            <h5>Carlos M.</h5>
+                            <div class="stars">⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="quote"><i data-lucide="quote"></i></div>
+                    <p>"Me encantó la guía local que nos dejaron, descubrimos lugares únicos."</p>
+                    <div class="user-info">
+                        <div style="background-color: #f0f0f0;"></div>
+                        <div>
+                            <h5>Ana R.</h5>
+                            <div class="stars">⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="quote"><i data-lucide="quote"></i></div>
+                    <p>"Proceso de check-in fluidísimo y el espacio es tal cual las fotos."</p>
+                    <div class="user-info">
+                        <div style="background-color: #f0f0f0;"></div>
+                        <div>
+                            <h5>Jorge T.</h5>
+                            <div class="stars">⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 11. BLOG -->
+        <section class="section-padding wrapper">
+            <div class="section-header">
+                <h2>Recomendaciones locales, guías y lifestyle</h2>
+                <div class="slider-controls">
+                    <button class="circle-btn prev" id="blogPrev"><i data-lucide="arrow-left"></i></button>
+                    <button class="circle-btn next" id="blogNext"><i data-lucide="arrow-right"></i></button>
+                </div>
+            </div>
+            <div class="slider-container" id="blogContainer">
+                <div class="slider-track" id="blogTrack">
+                    <article class="blog-card">
+                        <div style="width: 100%; height: 250px; background-color: #f0f0f0; border-radius: 24px; margin-bottom: 20px;"></div>
+                        <div class="card-content">
+                            <h3>Top 5 restaurantes en la Roma</h3>
+                            <p>Descubre dónde comer los mejores platillos cerca de tu estancia...</p>
+                            <a href="#" class="btn-text">Leer más <i data-lucide="arrow-right"></i></a>
+                        </div>
+                    </article>
+                    <article class="blog-card">
+                        <div style="width: 100%; height: 250px; background-color: #f0f0f0; border-radius: 24px; margin-bottom: 20px;"></div>
+                        <div class="card-content">
+                            <h3>El diseño detrás de nuestros espacios</h3>
+                            <p>Conoce a los creadores de los interiores más icónicos de Dave&Nat...</p>
+                            <a href="#" class="btn-text">Leer más <i data-lucide="arrow-right"></i></a>
+                        </div>
+                    </article>
+                    <article class="blog-card">
+                        <div style="width: 100%; height: 250px; background-color: #f0f0f0; border-radius: 24px; margin-bottom: 20px;"></div>
+                        <div class="card-content">
+                            <h3>Un fin de semana en Polanco</h3>
+                            <p>Tu itinerario perfecto para disfrutar del lujo de la capital...</p>
+                            <a href="#" class="btn-text">Leer más <i data-lucide="arrow-right"></i></a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 12. FOOTER -->
+    <footer class="footer">
+        <div class="wrapper footer-grid">
+            <div class="footer-col">
+                <div class="logo mb-4">
+                    <svg id="Capa_2" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 694.5 176.9" style="height: 65px; width: auto; color: white;">
+                      <defs><style>.st0 { fill: currentColor; }</style></defs>
+                      <g id="Capa_1-2"><g><g><path class="st0" d="M0,2.3h27.6c37.6,0,63.7,21.6,63.7,55.3s-24.3,58.4-55.5,58.4H0V2.3ZM39.9,112.6c20.5-4.2,34.2-21,34.2-51.6,0-44.2-29.2-55.3-46.5-55.3h-11v106.9s23.3,0,23.3,0Z"/><path class="st0" d="M149.9,80.6h-41.9c-6,17.5-10.4,31.8-11.4,35.4h-4.7L131.4,2.3h8.9l39.2,113.7h-17.6l-12.1-35.4h.1ZM148.7,77.2l-19.7-57.7-17.8,51.4-2.2,6.3h39.7Z"/><path class="st0" d="M167.9,2.3h17.9l32.6,95.3,14.1-40c5.7-16.2,16.2-46.6,18.9-55.2h4.6l-31.4,88.6c-2.4,6.9-7.1,20.9-8.5,25.2h-8.9L167.9,2.3Z"/><path class="st0" d="M268.2,2.3h63.5v4.1c-4.4-.2-27.3-.7-32.5-.7h-14.4v50.3h9.5c4.5,0,27.8-.2,32.5-.3v4.1c-4.7-.2-28-.4-32.5-.4h-9.5v53.2h15c5.2,0,28.1-.6,32.5-.7v4.1h-64.2V2.3h0Z"/><path class="st0" d="M417.9,116l-9.2-11c-8.4,8.1-19,13.2-31.5,13.2-18.9,0-36-11.6-36-30.1s9.6-25.1,27.2-31.8c-6.3-8.5-11.4-17.7-11.4-28.4,0-16.2,11.8-27.9,29.8-27.9s28.3,10.1,28.3,23.7-15.1,24.1-28.8,29.1l1.6,2,28.6,35c5.1-8.9,8.6-19.9,9.1-31.4l4.3.2c-1.2,11.8-5,23.8-11.2,33.9l19.2,23.6h-20ZM370.4,59c-9.2,4.1-13.2,12.2-13.2,22.7,0,17.6,10.8,30.8,26.8,30.8s16.5-4.1,22.7-9.9l-31.8-38.1-4.5-5.5h0ZM384.2,50.3c10.2-5,17-14.4,17-26.9s-6.6-20-17-20-16.1,6.5-16.1,15.5,7.5,20.7,16.1,31.4h0Z"/><path class="st0" d="M450.9,24.1v39.9c0,18.3.7,49.7.8,52h-4.2V2.3h9.2l67,92.4v-40.4c0-18.3-.7-48.9-.8-52h4.2v113.7h-9.2l-67-91.9h0Z"/><path class="st0" d="M594.6,80.6h-41.9c-6,17.5-10.4,31.8-11.4,35.4h-4.7L576.2,2.3h8.8l39.2,113.7h-17.5l-12.1-35.4h0ZM593.5,77.2l-19.7-57.7-17.8,51.4-2.2,6.3h39.7Z"/><path class="st0" d="M614.9,2.3h79.6v4.1c-4.3,0-27.2-.7-31.1-.7v110.3h-16.7V5.7h-.6c-3.4,0-26.9.7-31.3.7V2.3h0Z"/></g><g><path class="st0" d="M170.7,176.5h-4.1v-12.1h-11.6v12.1h-4.1v-27.8h4.1v12.2h11.6v-12.2h4.1v27.8Z"/><path class="st0" d="M214.7,162.6c0-9.1,4.9-14.2,11.6-14.2s11.6,5.1,11.6,14.2-5,14.3-11.6,14.3-11.6-5.2-11.6-14.3h0ZM233.6,162.6c0-7.4-3.2-10.7-7.4-10.7s-7.4,3.3-7.4,10.7,3.2,10.8,7.4,10.8,7.4-3.4,7.4-10.8Z"/><path class="st0" d="M281.1,168.5v-1.2h4.1v1.1c0,3.4,1.9,4.9,5.4,4.9s5.5-1.1,5.5-3.9-2.8-4.2-6.8-5.5c-4.5-1.4-8-3.8-8-8.5s3.8-7.2,9.1-7.2,9.4,2.6,9.4,7.9v1.3h-4.1v-1.1c0-3.2-1.8-4.6-5.2-4.6s-5.2,1.1-5.2,3.7,2.9,4.2,6.8,5.5c5,1.7,8,3.6,8,8.3s-3.7,7.5-9.5,7.5-9.5-2.8-9.5-8.4h0v.2h0Z"/><path class="st0" d="M354.1,152.1v24.4h-4.1v-24.4h-7.1v-3.4h18.3v3.4h-7.1,0Z"/><path class="st0" d="M404.9,148.7h4v27.8h-4v-27.8Z"/><path class="st0" d="M453.8,176.5v-27.8h6.5l10.5,24.7v-24.7h4v27.8h-6.6l-10.4-24.5v24.5h-4Z"/><path class="st0" d="M518.8,162.6c0-9,5.2-14.3,11.8-14.3s10,5.6,10,9.4v.2h-4v-.2c0-2.8-1.9-5.9-6-5.9s-7.7,3.3-7.7,10.8,3.4,10.7,7.5,10.7,6-2.5,6.5-4.6v-2.5h-6.4v-3.2h10v13.4h-2.6l-.3-3.1c-.4.8-2.4,3.5-7.4,3.5s-11.4-5.2-11.4-14.2h0Z"/></g></g></g>
+                    </svg>
+                </div>
+                <p>Estancias excepcionales en el corazón de la CDMX.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Links</h4>
+                <a href="index.html">Home</a>
+                <a href="preview.html">Propiedades</a>
+                <a href="#">Blog</a>
+            </div>
+            <div class="footer-col">
+                <h4>Contacto</h4>
+                <a href="#">hola@davenat.com</a>
+                <a href="#">+52 55 1234 5678</a>
+            </div>
+            <div class="footer-col">
+                <h4>Redes</h4>
+                <div class="social-icons">
+                    <a href="#"><i data-lucide="instagram"></i></a>
+                    <a href="#"><i data-lucide="facebook"></i></a>
+                    <a href="#"><i data-lucide="twitter"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom wrapper">
+            <p>&copy; 2026 Dave&Nat. Todos los derechos reservados.</p>
+            <a href="#">Host Login</a>
+        </div>
+    </footer>
+
+
+
+    <script>
+        lucide.createIcons();
+
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // ===== HERO SLIDER =====
+            const heroSlider = document.getElementById('heroSlider');
+            const heroPrev = document.getElementById('heroPrev');
+            const heroNext = document.getElementById('heroNext');
+            let heroSlides = document.querySelectorAll('.hero-section .slide');
+            const heroDotsContainer = document.getElementById('heroDots');
+            
+            let currentHeroIndex = 0;
+            const heroTotal = heroSlides.length;
+            let heroAutoPlayInterval;
+
+            for (let i = 0; i < heroTotal; i++) {
+                const dot = document.createElement('div');
+                dot.classList.add('dot');
+                if (i === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goToHeroSlide(i));
+                heroDotsContainer.appendChild(dot);
+            }
+            const heroDots = document.querySelectorAll('.hero-section .dot');
+
+            function updateHero() {
+                heroSlider.style.transform = `translateX(-${currentHeroIndex * 100}%)`;
+                heroDots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentHeroIndex);
+                });
+            }
+
+            function heroNextSlide() {
+                currentHeroIndex = (currentHeroIndex + 1) % heroTotal;
+                updateHero();
+            }
+
+            function heroPrevSlide() {
+                currentHeroIndex = (currentHeroIndex - 1 + heroTotal) % heroTotal;
+                updateHero();
+            }
+
+            function goToHeroSlide(index) {
+                currentHeroIndex = index;
+                updateHero();
+                resetHeroInterval();
+            }
+
+            heroNext.addEventListener('click', () => { heroNextSlide(); resetHeroInterval(); });
+            heroPrev.addEventListener('click', () => { heroPrevSlide(); resetHeroInterval(); });
+
+            function startHeroInterval() {
+                heroAutoPlayInterval = setInterval(heroNextSlide, 5000);
+            }
+
+            function resetHeroInterval() {
+                clearInterval(heroAutoPlayInterval);
+                startHeroInterval();
+            }
+
+            startHeroInterval();
+
+            // ===== GENERAL SLIDERS =====
+            function initSlider(containerId, trackId, prevBtnId, nextBtnId) {
+                const track = document.getElementById(trackId);
+                const prevBtn = document.getElementById(prevBtnId);
+                const nextBtn = document.getElementById(nextBtnId);
+                
+                if (!track || !prevBtn || !nextBtn) return;
+
+                let currentIndex = 0;
+                let items = track.children;
+                const totalItems = items.length;
+
+                function getVisibleItems() {
+                    if (window.innerWidth >= 768) {
+                        const itemWidth = items[0].getBoundingClientRect().width;
+                        const trackWidth = track.parentElement.getBoundingClientRect().width;
+                        return Math.round(trackWidth / itemWidth);
+                    }
+                    return 1;
+                }
+
+                function updateSlider() {
+                    const itemWidth = items[0].getBoundingClientRect().width;
+                    track.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+                    
+                    const visible = getVisibleItems();
+                    prevBtn.disabled = currentIndex === 0;
+                    nextBtn.disabled = currentIndex >= totalItems - visible;
+                }
+
+                nextBtn.addEventListener('click', () => {
+                    const visible = getVisibleItems();
+                    if (currentIndex < totalItems - visible) {
+                        currentIndex++;
+                        updateSlider();
+                    }
+                });
+
+                prevBtn.addEventListener('click', () => {
+                    if (currentIndex > 0) {
+                        currentIndex--;
+                        updateSlider();
+                    }
+                });
+
+                window.addEventListener('resize', () => {
+                    const visible = getVisibleItems();
+                    if (currentIndex > totalItems - visible) {
+                        currentIndex = Math.max(0, totalItems - visible);
+                    }
+                    updateSlider();
+                });
+
+                updateSlider();
+            }
+
+            initSlider('zonasContainer', 'zonasTrack', 'zonasPrev', 'zonasNext');
+            initSlider('propContainer', 'propTrack', 'propiedadesPrev', 'propiedadesNext');
+            initSlider('blogContainer', 'blogTrack', 'blogPrev', 'blogNext');
+
+            // ===== ZONA DROPDOWN =====
+            const triggerZoneDropdown = document.getElementById('triggerZoneDropdown');
+            const zoneDropdown = document.getElementById('zoneDropdown');
+            const zoneSelected = document.getElementById('zoneSelected');
+            const zoneRadios = document.querySelectorAll('input[name="zone"]');
+
+            triggerZoneDropdown.addEventListener('click', () => {
+                zoneDropdown.style.display = zoneDropdown.style.display === 'none' ? 'block' : 'none';
+            });
+
+            zoneRadios.forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    zoneSelected.textContent = e.target.value;
+                    zoneDropdown.style.display = 'none';
+                });
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!document.getElementById('zoneField').contains(e.target)) {
+                    zoneDropdown.style.display = 'none';
+                }
+            });
+
+            // ===== CALENDAR PICKER =====
+            const triggerDatePicker = document.getElementById('triggerDatePicker');
+            const calendarPopup = document.getElementById('calendarPopup');
+            const dateSelected = document.getElementById('dateSelected');
+            
+            let selectedStartDate = null;
+            let selectedEndDate = null;
+            let currentMonth = new Date(2026, 9); // Octubre 2026
+
+            const monthYear = document.getElementById('monthYear');
+            const calendarDays = document.getElementById('calendarDays');
+            const prevMonth = document.getElementById('prevMonth');
+            const nextMonth = document.getElementById('nextMonth');
+            const applyDates = document.getElementById('applyDates');
+            const clearDates = document.getElementById('clearDates');
+
+            const monthNames = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 
+                              'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+
+            function renderCalendar() {
+                monthYear.textContent = `${monthNames[currentMonth.getMonth()]} ${currentMonth.getFullYear()}`;
+                calendarDays.innerHTML = '';
+
+                const firstDay = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1).getDay();
+                const daysInMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0).getDate();
+                const daysInPrevMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 0).getDate();
+
+                // Días del mes anterior
+                for (let i = firstDay - 1; i >= 0; i--) {
+                    const day = document.createElement('div');
+                    day.className = 'calendar-day other-month';
+                    day.textContent = daysInPrevMonth - i;
+                    calendarDays.appendChild(day);
+                }
+
+                // Días del mes actual
+                for (let i = 1; i <= daysInMonth; i++) {
+                    const day = document.createElement('div');
+                    day.className = 'calendar-day';
+                    day.textContent = i;
+                    
+                    const dateObj = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), i);
+                    
+                    if (selectedStartDate && selectedStartDate.toDateString() === dateObj.toDateString()) {
+                        day.classList.add('selected');
+                    }
+                    if (selectedEndDate && selectedEndDate.toDateString() === dateObj.toDateString()) {
+                        day.classList.add('selected');
+                    }
+                    
+                    if (selectedStartDate && selectedEndDate) {
+                        if (dateObj > selectedStartDate && dateObj < selectedEndDate) {
+                            day.classList.add('in-range');
+                        }
+                    }
+
+                    day.addEventListener('click', () => selectDate(dateObj));
+                    calendarDays.appendChild(day);
+                }
+
+                // Días del mes siguiente
+                const totalCells = calendarDays.children.length;
+                const remainingCells = 42 - totalCells;
+                for (let i = 1; i <= remainingCells; i++) {
+                    const day = document.createElement('div');
+                    day.className = 'calendar-day other-month';
+                    day.textContent = i;
+                    calendarDays.appendChild(day);
+                }
+            }
+
+            function selectDate(dateObj) {
+                if (!selectedStartDate) {
+                    selectedStartDate = dateObj;
+                } else if (!selectedEndDate) {
+                    if (dateObj > selectedStartDate) {
+                        selectedEndDate = dateObj;
+                    } else {
+                        selectedEndDate = selectedStartDate;
+                        selectedStartDate = dateObj;
+                    }
+                } else {
+                    selectedStartDate = dateObj;
+                    selectedEndDate = null;
+                }
+                renderCalendar();
+            }
+
+            triggerDatePicker.addEventListener('click', () => {
+                calendarPopup.style.display = calendarPopup.style.display === 'none' ? 'block' : 'none';
+                if (calendarPopup.style.display === 'block') {
+                    renderCalendar();
+                }
+            });
+
+            prevMonth.addEventListener('click', () => {
+                currentMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1);
+                renderCalendar();
+            });
+
+            nextMonth.addEventListener('click', () => {
+                currentMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1);
+                renderCalendar();
+            });
+
+            applyDates.addEventListener('click', () => {
+                if (selectedStartDate && selectedEndDate) {
+                    const startStr = selectedStartDate.toLocaleDateString('es-MX', { day: 'numeric', month: 'short' });
+                    const endStr = selectedEndDate.toLocaleDateString('es-MX', { day: 'numeric', month: 'short' });
+                    dateSelected.textContent = `${startStr} - ${endStr}`;
+                    calendarPopup.style.display = 'none';
+                }
+            });
+
+            clearDates.addEventListener('click', () => {
+                selectedStartDate = null;
+                selectedEndDate = null;
+                dateSelected.textContent = '12 Oct - 18 Oct';
+                renderCalendar();
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!document.getElementById('dateField').contains(e.target)) {
+                    calendarPopup.style.display = 'none';
+                }
+            });
+
+            // ===== DROPDOWN HUÉSPEDES =====
+            const triggerGuestsBtn = document.getElementById('triggerGuestsDropdown');
+            const guestsPopup = document.getElementById('guestsPopup');
+            const closeGuestsPopup = document.getElementById('closeGuestsPopup');
+            const summaryText = document.getElementById('guestsSummary');
+
+            triggerGuestsBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                // Ocultar otros
+                zoneDropdown.style.display = 'none';
+                calendarPopup.style.display = 'none';
+                guestsPopup.style.display = guestsPopup.style.display === 'block' ? 'none' : 'block';
+            });
+
+            closeGuestsPopup.addEventListener('click', () => {
+                guestsPopup.style.display = 'none';
+            });
+
+            guestsPopup.addEventListener('click', (e) => {
+                e.stopPropagation();
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!document.getElementById('guestsField').contains(e.target)) {
+                    guestsPopup.style.display = 'none';
+                }
+            });
+
+            const guests = {
+                adults: 2,
+                children: 0,
+                infants: 0,
+                pets: 0
+            };
+
+            const countEls = {
+                adults: document.getElementById('count-adults'),
+                children: document.getElementById('count-children'),
+                infants: document.getElementById('count-infants'),
+                pets: document.getElementById('count-pets')
+            };
+
+            const counterBtns = document.querySelectorAll('.counter-btn');
+
+            counterBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const target = btn.dataset.target;
+                    const isPlus = btn.classList.contains('plus');
+
+                    if (isPlus) {
+                        guests[target]++;
+                    } else {
+                        if (guests[target] > 0) guests[target]--;
+                        if (target === 'adults' && guests[target] < 1) guests[target] = 1; 
+                    }
+
+                    countEls[target].textContent = guests[target];
+                    
+                    const minusBtn = btn.parentElement.querySelector('.minus');
+                    if (target === 'adults') minusBtn.disabled = guests[target] <= 1;
+                    else minusBtn.disabled = guests[target] === 0;
+
+                    updateSummary();
+                });
+            });
+
+            function updateSummary() {
+                const totalGuests = guests.adults + guests.children;
+                let text = `${totalGuests} Huésped${totalGuests !== 1 ? 'es' : ''}`;
+                if (guests.infants > 0) text += `, ${guests.infants} bebé${guests.infants !== 1 ? 's' : ''}`;
+                if (guests.pets > 0) text += `, ${guests.pets} mascota${guests.pets !== 1 ? 's' : ''}`;
+                
+                summaryText.textContent = text;
+            }
+
+            // NAVBAR SCROLL EFFECT
+            const navbar = document.querySelector('.navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.style.boxShadow = '0 4px 6px rgba(0,0,0,0.05)';
+                } else {
+                    navbar.style.boxShadow = 'none';
+                }
+            });
+
+        });
+    </script>
+</body>
+</html>
